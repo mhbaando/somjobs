@@ -9,11 +9,11 @@ export default defineConfig({
     alias: [
       {
         find: '@',
-        replacement: path.resolve(__dirname, 'src'),
-      },
-    ],
+        replacement: path.resolve(__dirname, 'src')
+      }
+    ]
   },
   server: {
-    host: true,
-  },
+    host: true
+  }
 })
