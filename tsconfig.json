@@ -17,7 +17,14 @@
     "jsx": "react-jsx",
     "strictNullChecks": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@ui/*": ["./src/ui/*"],
+      "@component/*": ["./src/components/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@error/*": ["./src/errors/*"],
+      "@nots/*": ["./src/notifications/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "include": ["src"],
