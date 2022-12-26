@@ -14,7 +14,7 @@
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": "/Users/mhbaando/Documents/Code/Projects/somejobs/tsconfig.eslint.json"
+    "project": "tsconfig.eslint.json"
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
@@ -27,6 +27,9 @@
   "settings": {
     "import/resolver": {
       "typescript": {}
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }
