@@ -15,7 +15,7 @@ module.exports = {
         overlay: '#202124'
       },
       fontFamily: {
-        Roboto: ['Nunito Sans', 'sans-serif']
+        Nunito: ['Nunito Sans', 'sans-serif']
       }
     }
   },
