@@ -1,10 +1,12 @@
-import Header from '@/ui/molecules/Header'
+import Categories from '@/ui/molecules/Categories'
+import Clients from '@/ui/molecules/clients/Index'
 import Layout from '@/ui/organisims/Layout'
 
 const Home = (): React.ReactElement => {
   return (
     <Layout>
-      <h1>hello</h1>
+      <Clients />
+      <Categories />
     </Layout>
   )
 }
