@@ -4,7 +4,6 @@ import Header from '@/ui/molecules/Header'
 interface ILayout {
   children: React.ReactElement[] | JSX.Element
 }
-// eslint-disable-next-line react/prop-types
 const Layout: React.FC<ILayout> = ({ children }): React.ReactElement => {
   return (
     <>
