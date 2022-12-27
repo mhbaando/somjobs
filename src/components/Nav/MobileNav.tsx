@@ -33,7 +33,7 @@ const MobileNav: React.FC<IMobileNav> = ({ isMenuOpen, setIsMenuOpen }): React.R
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className='absolute w-screen h-screen bg-overlay origin-right'
+            className='absolute w-screen h-screen bg-overlay origin-right z-40'
             key='overlay'
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 0.5, scaleX: 1, visibility: 'visible' }}
@@ -45,7 +45,7 @@ const MobileNav: React.FC<IMobileNav> = ({ isMenuOpen, setIsMenuOpen }): React.R
 
         {isMenuOpen && (
           <motion.section
-            className='w-full max-w-[250px] h-[310px] rounded-md bg-whiteBlue absolute m-auto left-0 right-0 top-full flex flex-col overflow-hidden'
+            className='w-full max-w-[250px] h-[310px] rounded-md bg-whiteBlue absolute m-auto left-0 right-0 top-32 flex flex-col overflow-hidden z-50'
             key='menus'
             variants={parent}
             initial='hidden'
@@ -58,7 +58,7 @@ const MobileNav: React.FC<IMobileNav> = ({ isMenuOpen, setIsMenuOpen }): React.R
                   <motion.li
                     variants={child}
                     onClick={() => setIsMenuOpen(false)}
-                    className='w-full px-3 py-4 hover:bg-secondaryDark origin-top hover:text-white cursor-pointer'
+                    className='w-full px-3 py-4 hover:bg-primaryDark origin-top hover:text-white cursor-pointer'
                   >
                     {menu.name}
                   </motion.li>
