@@ -14,7 +14,7 @@ const Button: React.FC<IButton> = ({
   return (
     <button
       type={type}
-      className={`bg-secondaryYellow text-white ${additionalClasses}`}
+      className={`bg-primaryDark text-white ${additionalClasses}`}
       onClick={handleClick}
     >
       {children}
