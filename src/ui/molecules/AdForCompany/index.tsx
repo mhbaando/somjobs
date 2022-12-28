@@ -34,7 +34,7 @@ const AdForCompany = (): React.ReactElement => {
               But I must explain to you how all this
             </li>
           </ul>
-          <Button type='button' additionalClasses='px-4 py-2 rounded-lg mt-5'>
+          <Button type='button' additionalClasses='px-4 py-2 rounded-lg mt-5 mb-12'>
             Post A Job
           </Button>
         </div>
