@@ -1,6 +1,6 @@
 interface IButton {
   type: 'button' | 'reset' | 'submit'
-  children: string
+  children: any
   additionalClasses?: string
   handleClick?: () => void
 }
