@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "strictNullChecks": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src"],
       "@pages/*": ["./src/pages/*"],
       "@ui/*": ["./src/ui/*"],
       "@component/*": ["./src/components/*"],
