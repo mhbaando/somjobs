@@ -1,7 +1,9 @@
 import React, { lazy } from 'react'
 
 // import all pages here
-const Home = lazy(async () => await import('../pages/Home'))
+const Home = lazy(async () => await import('@pages/Home'))
+const Login = lazy(async () => await import('@pages/auth/Login'))
+const Register = lazy(async () => await import('@pages/auth/Register'))
 
 // here are the publicly avalible routes
 interface PublicRoute {
@@ -15,11 +17,11 @@ const publicRoutes: PublicRoute[] = [
   },
   {
     path: '/login',
-    Element: Home
+    Element: Login
   },
   {
     path: '/register',
-    Element: Home
+    Element: Register
   }
 ]
 
