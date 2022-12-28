@@ -10,7 +10,7 @@ const Hero = (): React.ReactElement => {
     <div className='relative w-full h-full z-0'>
       <DarkNav />
       <div className='section mt-10'>
-        <div className='flex flex-col items-start justify-center bg-whiteBlue w-full h-[500px] rounded-md max-w-7xl mx-auto relative overflow-hidden p-10'>
+        <div className='flex flex-col items-start justify-center bg-whiteBlue w-full h-[500px] rounded-md max-w-7xl mx-auto relative overflow-hidden p-5 md:p-10'>
           <img
             src={HeroImage}
             alt='Hero bg'
