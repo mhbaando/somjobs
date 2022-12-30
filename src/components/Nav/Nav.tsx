@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { HiOutlineMenuAlt3 } from 'react-icons/hi'
 
@@ -6,8 +6,10 @@ import Menus from '@utils/MenuLinks'
 import Logo from '@assets/logo/LogoColor.svg'
 import Button from '@shared/components/Button'
 import MobileNav from './MobileNav'
-
-const DarkNav = (): React.ReactElement => {
+interface Nav {
+  additionalClass?: string
+}
+const DarkNav: React.FC<Nav> = ({ additionalClass }): React.ReactElement => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -25,7 +27,7 @@ const DarkNav = (): React.ReactElement => {
 
   return (
     <>
-      <nav className='bg-gradient-to-b relative z-10 mt-3'>
+      <nav className={`bg-gradient-to-b relative z-10 mt-3 ${additionalClass}`}>
         <div className='flex items-center px-5 py-3 md:px-10 justify-between max-w-screen-xl mx-auto'>
           <div className='flex items-center justify-start gap-10'>
             <img
