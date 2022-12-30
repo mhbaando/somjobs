@@ -24,7 +24,8 @@
       "@shared/*": ["./src/shared/*"],
       "@error/*": ["./src/errors/*"],
       "@nots/*": ["./src/notifications/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["src"],
