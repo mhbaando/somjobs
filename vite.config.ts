@@ -40,7 +40,7 @@ export default defineConfig({
         replacement: path.resolve(__dirname, 'src/assets')
       },
       {
-        find: '@assets',
+        find: '@utils',
         replacement: path.resolve(__dirname, 'src/utils')
       }
     ]
