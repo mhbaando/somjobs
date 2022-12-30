@@ -4,6 +4,7 @@ import React, { lazy } from 'react'
 const Home = lazy(async () => await import('@pages/Home'))
 const Login = lazy(async () => await import('@pages/auth/Login'))
 const Register = lazy(async () => await import('@pages/auth/Register'))
+const Jobs = lazy(async () => await import('@pages/jobs'))
 
 // here are the publicly avalible routes
 interface PublicRoute {
@@ -22,6 +23,10 @@ const publicRoutes: PublicRoute[] = [
   {
     path: '/register',
     Element: Register
+  },
+  {
+    path: '/jobs',
+    Element: Jobs
   }
 ]
 
