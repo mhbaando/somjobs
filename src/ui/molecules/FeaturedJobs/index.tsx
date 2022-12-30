@@ -1,7 +1,7 @@
-import FeaturedJobCard from '@/components/Cards/FeaturedJob'
-import Title from '@/components/Title'
-import Button from '@/shared/components/Button'
-import FeaturedJobsList from '@/utils/FeaturedJobsList'
+import FeaturedJobCard from '@component/Cards/FeaturedJob'
+import Title from '@component/Title'
+import Button from '@shared/components/Button'
+import FeaturedJobsList from '@utils/FeaturedJobsList'
 import React from 'react'
 
 const FeaturedJobs = (): React.ReactElement => {

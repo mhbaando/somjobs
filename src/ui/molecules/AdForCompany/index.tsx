@@ -1,6 +1,6 @@
 import { AiFillCheckCircle } from 'react-icons/ai'
-import ads from '@/assets/misc/ads.png'
-import Button from '@/shared/components/Button'
+import ads from '@assets/misc/ads.png'
+import Button from '@shared/components/Button'
 const AdForCompany = (): React.ReactElement => {
   return (
     <section className='section mt-24'>

@@ -1,5 +1,5 @@
-import CTA from '@/assets/misc/cta.png'
-import Button from '@/shared/components/Button'
+import CTA from '@assets/misc/cta.png'
+import Button from '@shared/components/Button'
 import { useNavigate } from 'react-router-dom'
 const CallToAction = (): React.ReactElement => {
   const navigate = useNavigate()

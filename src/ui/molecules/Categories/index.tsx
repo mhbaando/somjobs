@@ -1,6 +1,6 @@
-import CategoryCard from '@/components/Cards/Categories'
-import Title from '@/components/Title'
-import PopularCategories from '@/utils/PopularCategories'
+import CategoryCard from '@component/Cards/Categories'
+import Title from '@component/Title'
+import PopularCategories from '@utils/PopularCategories'
 import React from 'react'
 
 const Categories = (): React.ReactElement => {

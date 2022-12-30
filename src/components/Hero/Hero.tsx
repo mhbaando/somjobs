@@ -2,8 +2,8 @@ import { BiSearchAlt } from 'react-icons/bi'
 import { TiLocationOutline } from 'react-icons/ti'
 
 import DarkNav from '../Nav/Nav'
-import HeroImage from '@/assets/logo/hero.png'
-import Button from '@/shared/components/Button'
+import HeroImage from '@assets/logo/hero.png'
+import Button from '@shared/components/Button'
 
 const Hero = (): React.ReactElement => {
   return (

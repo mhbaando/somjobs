@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { HiOutlineMenuAlt3 } from 'react-icons/hi'
 
-import Menus from '@/utils/MenuLinks'
+import Menus from '@utils/MenuLinks'
 import Logo from '@assets/logo/LogoColor.svg'
-import Button from '@/shared/components/Button'
+import Button from '@shared/components/Button'
 import MobileNav from './MobileNav'
 
 const DarkNav = (): React.ReactElement => {

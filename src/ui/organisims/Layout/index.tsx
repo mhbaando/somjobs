@@ -1,5 +1,5 @@
-import Footer from '@/ui/molecules/Footer/Footer'
-import Header from '@/ui/molecules/Header'
+import Footer from '@ui/molecules/Footer/Footer'
+import Header from '@ui/molecules/Header'
 
 interface ILayout {
   children: React.ReactElement[] | JSX.Element

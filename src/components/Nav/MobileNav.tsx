@@ -1,5 +1,5 @@
-import Button from '@/shared/components/Button'
-import Menus from '@/utils/MenuLinks'
+import Button from '@shared/components/Button'
+import Menus from '@utils/MenuLinks'
 import { AnimatePresence, motion } from 'framer-motion'
 import { IoMdClose } from 'react-icons/io'
 import { Link, NavLink, useNavigate } from 'react-router-dom'

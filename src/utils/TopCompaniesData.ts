@@ -1,7 +1,7 @@
-import Somtel from '@/assets/clients/somtel.jpg'
-import hormuud from '@/assets/clients/hormuud.png'
-import premier from '@/assets/clients/premier.png'
-import cadaani from '@/assets/misc/cadaani.png'
+import Somtel from '@assets/clients/somtel.jpg'
+import hormuud from '@assets/clients/hormuud.png'
+import premier from '@assets/clients/premier.png'
+import cadaani from '@assets/misc/cadaani.png'
 
 interface TopCompayData {
   name: string

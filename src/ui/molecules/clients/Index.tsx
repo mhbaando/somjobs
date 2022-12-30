@@ -1,4 +1,4 @@
-import ClientLists from '@/utils/ClientList'
+import ClientLists from '@utils/ClientList'
 import React from 'react'
 
 const Clients = (): React.ReactElement => {

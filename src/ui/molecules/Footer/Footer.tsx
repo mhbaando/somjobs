@@ -4,7 +4,7 @@ import { FaFacebookF } from 'react-icons/fa'
 import { IoLogoTwitter } from 'react-icons/io'
 import { AiFillLinkedin } from 'react-icons/ai'
 
-import Logo from '@/assets/logo/LogoColor.svg'
+import Logo from '@assets/logo/LogoColor.svg'
 const Footer = (): React.ReactElement => {
   const year = new Date().getFullYear()
   return (

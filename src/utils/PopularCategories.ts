@@ -1,11 +1,11 @@
-import accounting from '@/assets/categories/money.svg'
-import marketing from '@/assets/categories/marketing.png'
-import desing from '@/assets/categories/design.svg'
-import development from '@/assets/categories/dev.svg'
-import project from '@/assets/categories/project.png'
-import customer from '@/assets/categories/customer.png'
-import health from '@/assets/categories/health.svg'
-import car from '@/assets/categories/car.png'
+import accounting from '@assets/categories/money.svg'
+import marketing from '@assets/categories/marketing.png'
+import desing from '@assets/categories/design.svg'
+import development from '@assets/categories/dev.svg'
+import project from '@assets/categories/project.png'
+import customer from '@assets/categories/customer.png'
+import health from '@assets/categories/health.svg'
+import car from '@assets/categories/car.png'
 
 interface Category {
   name: string

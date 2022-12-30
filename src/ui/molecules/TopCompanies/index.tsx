@@ -1,6 +1,6 @@
-import TopCompanyCard from '@/components/Cards/TopCompanyCard'
-import Title from '@/components/Title'
-import TopCompaniesData from '@/utils/TopCompaniesData'
+import TopCompanyCard from '@component/Cards/TopCompanyCard'
+import Title from '@component/Title'
+import TopCompaniesData from '@utils/TopCompaniesData'
 
 const TopCompanies = (): React.ReactElement => {
   return (
