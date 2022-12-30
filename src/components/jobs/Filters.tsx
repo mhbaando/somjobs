@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { forwardRef } from 'react'
+import { Ref, forwardRef } from 'react'
 import DatePicker from 'react-datepicker'
 import { Formik, Form, Field } from 'formik'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -11,11 +11,17 @@ const JobFilters = (): React.ReactElement => {
   const jobTypes = ['Full Time', 'Part Time', 'Contract']
   const joblevel = ['Junior', 'Mid-Senior', 'Senior']
 
-  const DateTimeRendere = forwardRef(({ value, onClick }, ref) => (
+  interface Props {
+    children?: string
+    onClick?: (name: string, val: any) => void
+    value?: any
+  }
+
+  const DateTimeRendere = forwardRef<HTMLButtonElement, Props>(({ value, onClick }, ref) => (
     <button
-      onClick={(val) => onClick('datePosted', val)}
+      onClick={(val) => onClick!('datePosted', val)}
       ref={ref}
-      className='bg-blue-50 py-2 px-3 rounded-md'
+      className='bg-blue-50 py-2 px-3 rounded-md text-sm'
     >
       {value}
     </button>
