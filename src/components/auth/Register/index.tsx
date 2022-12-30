@@ -12,7 +12,7 @@ const RegisterForm = (): React.ReactElement => {
   return (
     <div className='flex items-center  justify-center w-full h-full relative z-10'>
       <div className='flex flex-col items-center justify-center w-full h-full '>
-        <div className='py-5  p-6 rounded-lg bg-white md:w-[400px] w-full'>
+        <div className='px-6 pb-2 rounded-lg bg-white md:w-[400px] w-full'>
           <h2 className='text-lg font-semibold pt-5 '>Create a Free Account</h2>
           <p className='pb-5 text-sm'>
             <span className='text-red-500'>*</span> Means required
@@ -147,7 +147,7 @@ const RegisterForm = (): React.ReactElement => {
             <p className='text-sm text-gray-500 mt-4'>
               Already Have an Account{' '}
               <span>
-                <Link to='/register' className='font-bold text-primaryBlue'>
+                <Link to='/login' className='font-bold text-primaryBlue'>
                   Login
                 </Link>
               </span>
