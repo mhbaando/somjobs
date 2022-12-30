@@ -11,7 +11,7 @@ const Hero = (): React.ReactElement => {
   const location = useLocation()
 
   return (
-    <div className='relative w-full h-full z-0'>
+    <div className='relative w-full h-full z-10'>
       <DarkNav />
       {/* render only on the home page */}
       {location.pathname === '/' && (
