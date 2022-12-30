@@ -2,6 +2,7 @@ import Somtel from '@assets/clients/somtel.jpg'
 import hormuud from '@assets/clients/hormuud.png'
 import premier from '@assets/clients/premier.png'
 
+// TODO: posetd date is missing
 interface Featuredjob {
   jobname: string
   companyName: string
