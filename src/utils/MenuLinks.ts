@@ -13,10 +13,6 @@ const Menus: Menu[] = [
     name: 'Find Jobs'
   },
   {
-    path: '/candidates',
-    name: 'Candidates'
-  },
-  {
     path: '/companies',
     name: 'Companies'
   }
