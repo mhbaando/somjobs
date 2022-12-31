@@ -6,6 +6,7 @@ import Hero from '@component/jobs/Hero'
 import FeaturedJobsList from '@utils/FeaturedJobsList'
 import Footer from '@ui/molecules/Footer/Footer'
 import usePagination from '@hooks/pagination'
+import { Link, Outlet } from 'react-router-dom'
 
 const Jobs = (): React.ReactElement => {
   const itemsPerPage = 2
@@ -22,16 +23,17 @@ const Jobs = (): React.ReactElement => {
           <div>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-5 my-12'>
               {FeaturedJobsList.slice(firstItem, lastItem).map((job, i) => (
-                <JobCard
-                  key={i}
-                  companyImage={job.companyImg}
-                  companyName={job.companyName}
-                  location={job.location}
-                  jobName={job.jobname}
-                  postedDate='30/12/2022'
-                  shift={job.shift}
-                  status={job.status}
-                />
+                <Link key={i} to={`/jobs/${job.jobname}`}>
+                  <JobCard
+                    companyImage={job.companyImg}
+                    companyName={job.companyName}
+                    location={job.location}
+                    jobName={job.jobname}
+                    postedDate='30/12/2022'
+                    shift={job.shift}
+                    status={job.status}
+                  />
+                </Link>
               ))}
             </div>
             <Pagination
@@ -43,6 +45,8 @@ const Jobs = (): React.ReactElement => {
           </div>
         </div>
       </section>
+      <Outlet />
+
       <Footer />
     </>
   )
