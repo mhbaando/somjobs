@@ -12,7 +12,8 @@ module.exports = {
         secondaryYellow: '#F9AB00',
         secondaryDark: '#E9A000',
         whiteBlue: '#EFF4FC',
-        overlay: '#202124'
+        overlay: '#202124',
+        garyish: '#696969'
       },
       fontFamily: {
         Nunito: ['Nunito Sans', 'sans-serif']
