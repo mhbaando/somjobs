@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import DarkNav from '@component/Nav/Nav'
+import DarkNav from '@component/Shared/Nav/Nav'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import EmployeeDashboardLink from '@utils/EmployeeDashboardLink'
 
@@ -13,7 +13,7 @@ const EmployeeDashboard = (): JSX.Element => {
       <div className='w-screen h-full flex'>
         {/* Dashboard */}
         <div className='border max-w-1/3 mr-3 sm:mr-0'>
-          <div className='absolute h-screen w-[100px] md:w-[280px] top-0 bg-white shadow-md pt-28'>
+          <div className='fixed h-screen w-[100px] md:w-[280px] top-0 bg-white shadow-md pt-28'>
             <ul className='px-4 md:px-10 flex items-start gap-2 flex-col'>
               {EmployeeDashboardLink.map((menu) => {
                 const isActive = location.pathname === menu.path
@@ -40,7 +40,7 @@ const EmployeeDashboard = (): JSX.Element => {
           </div>
         </div>
         {/* Render Darshboard */}
-        <div className='p-6 w-full ml-[100px] md:ml-[300px] border mt-20 col-span-4 border-red-500 mr-5 bg-whiteBlue'>
+        <div className='p-6 w-full ml-[100px] md:ml-[300px] mt-20 col-span-4 mr-5 bg-whiteBlue'>
           <Outlet />
         </div>
       </div>
