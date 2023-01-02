@@ -1,6 +1,6 @@
 import FeaturedJobCard from '@component/Cards/FeaturedJob'
 import Title from '@component/Title'
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 import FeaturedJobsList from '@utils/FeaturedJobsList'
 import React from 'react'
 

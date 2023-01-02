@@ -3,7 +3,7 @@ import React, { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import NotFound from '@error/404'
-import Loader from './shared/components/Loader'
+import Loader from './components/Shared/Loader'
 import { privateRoutes, publicRoutes } from './routes/routes'
 
 const App = (): React.ReactElement => {

@@ -4,7 +4,7 @@ import { HiOutlineMenuAlt3 } from 'react-icons/hi'
 
 import Menus from '@utils/MenuLinks'
 import Logo from '@assets/logo/LogoColor.svg'
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 import MobileNav from './MobileNav'
 interface Nav {
   additionalClass?: string

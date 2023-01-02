@@ -1,4 +1,4 @@
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 import Menus from '@utils/MenuLinks'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'

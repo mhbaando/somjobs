@@ -5,7 +5,7 @@ import { Formik, Form, Field } from 'formik'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { FiFilter } from 'react-icons/fi'
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 
 const JobFilters = (): React.ReactElement => {
   const jobTypes = ['Full Time', 'Part Time', 'Contract']

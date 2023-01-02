@@ -1,5 +1,5 @@
 import NotFoundImg from '@assets/misc/404.png'
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 import { useNavigate } from 'react-router-dom'
 
 const NotFound = (): JSX.Element => {

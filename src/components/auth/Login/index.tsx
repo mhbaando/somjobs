@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 
 const LoginForm = (): React.ReactElement => {
   return (

@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { AiOutlineUser } from 'react-icons/ai'
 import { BsBriefcase } from 'react-icons/bs'
 
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 const RegisterForm = (): React.ReactElement => {
   const accountType = ['Candidadate', 'Employer']
   const [selectedType, setSelectedType] = useState(accountType[0])

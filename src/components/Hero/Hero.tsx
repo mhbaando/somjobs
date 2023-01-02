@@ -1,9 +1,9 @@
 import { BiSearchAlt } from 'react-icons/bi'
 import { TiLocationOutline } from 'react-icons/ti'
 
-import DarkNav from '../Nav/Nav'
+import DarkNav from '../Shared/Nav/Nav'
 import HeroImage from '@assets/logo/hero.png'
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 import { useLocation } from 'react-router-dom'
 
 const Hero = (): React.ReactElement => {

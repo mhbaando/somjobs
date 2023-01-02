@@ -1,5 +1,5 @@
 import { SlLocationPin } from 'react-icons/sl'
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 
 interface TopCompany {
   name: string

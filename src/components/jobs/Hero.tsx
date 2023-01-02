@@ -3,7 +3,7 @@ import { BsSearch, BsBriefcase } from 'react-icons/bs'
 import { Field, Form, Formik } from 'formik'
 
 import headerbg from '@assets/misc/jobsbg.png'
-import Button from '@shared/components/Button'
+import Button from '@component/Shared/Button'
 
 const Hero = (): React.ReactElement => {
   const jobCategories = ['Software', 'Accounting', 'Bussiness']

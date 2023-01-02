@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 import Bg from '@assets/auth/bg.png'
 import Logo from '@assets/logo/LogoColor.svg'
-import RegisterForm from '@component/auth/Register'
+import RegisterForm from '@component/Auth/Register'
 
 const Register = (): React.ReactElement => {
   return (

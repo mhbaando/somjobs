@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import LoginForm from '@component/auth/Login'
+import LoginForm from '@component/Auth/Login'
 
 import Bg from '@assets/auth/bg.png'
 import Logo from '@assets/logo/LogoColor.svg'
