@@ -1,8 +1,7 @@
 import Button from '@shared/components/Button'
 import Menus from '@utils/MenuLinks'
 import { AnimatePresence, motion } from 'framer-motion'
-import { IoMdClose } from 'react-icons/io'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface IMobileNav {
   isMenuOpen: boolean
@@ -45,7 +44,7 @@ const MobileNav: React.FC<IMobileNav> = ({ isMenuOpen, setIsMenuOpen }): React.R
 
         {isMenuOpen && (
           <motion.section
-            className='w-full max-w-[250px] h-[310px] rounded-md bg-whiteBlue absolute m-auto left-0 right-0 top-32 flex flex-col overflow-hidden z-50'
+            className='w-full max-w-[250px] h-[250px] rounded-md bg-whiteBlue absolute m-auto left-0 right-0 top-32 flex flex-col overflow-hidden z-50'
             key='menus'
             variants={parent}
             initial='hidden'
