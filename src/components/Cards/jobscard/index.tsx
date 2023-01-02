@@ -23,7 +23,7 @@ const JobCard: React.FC<IJobCard> = ({
   status
 }): React.ReactElement => {
   return (
-    <div className='border bg-white hover:bg-whiteBlue duration-300 transition-all ease-in-out cursor-pointer rounded-md w-full px-6 py-5'>
+    <div className='border bg-white hover:bg-blue-100 duration-300 transition-all ease-in-out cursor-pointer rounded-md w-full px-6 py-5'>
       <div className='flex items-start gap-5'>
         <div className='w-14  rounded-full overflow-hidden flex items-center justify-center '>
           <img src={companyImage} alt='logo' className='object-cover object-center h-full' />
