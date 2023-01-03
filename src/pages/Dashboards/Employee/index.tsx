@@ -5,16 +5,12 @@ import Somtel from '@assets/clients/premier.png'
 
 import LineChart from '@component/Shared/Chart/Area'
 import JobCard from '@component/Cards/jobscard'
+import DashboarHeading from '@component/Shared/DashboardHeading'
 
 const EmployeeHome = (): JSX.Element => {
   return (
     <div className='w-full h-full flex flex-col items-center justify-center'>
-      <div className='flex flex-col w-full'>
-        <h3 className='text-xl'>
-          Welcome, <span className='font-bold'>Kamaal Ali</span>
-        </h3>
-        <span className='text-sm text-garyish'>Ready to jump back in?</span>
-      </div>
+      <DashboarHeading heading='Welcome,' headingBold='Kamaal Ali' />
       <div className='grid gird-cols-1 md:grid-cols-3  gap-5 w-full my-12'>
         <div className='bg-white rounded-md w-full relative pt-10 md:col-span-2 px-3'>
           <h3 className='text-lg px-2'>Total Applied Jobs</h3>
