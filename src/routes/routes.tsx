@@ -12,6 +12,7 @@ const Job = lazy(async () => await import('@pages/jobs/Job'))
 const EmployeeDashboard = lazy(async () => await import('@pages/Dashboards/Employee/Dashboard'))
 const EmployeeHome = lazy(async () => await import('@pages/Dashboards/Employee'))
 const EmployeeProfile = lazy(async () => await import('@pages/Dashboards/Employee/Profile'))
+const EmployeeResume = lazy(async () => await import('@pages/Dashboards/Employee/CvManager'))
 
 const publicRoutes: PublicRoute[] = [
   {
@@ -53,6 +54,10 @@ const privateRoutes: PrivateRoute[] = [
       {
         path: 'profile',
         Child: EmployeeProfile
+      },
+      {
+        path: 'resume',
+        Child: EmployeeResume
       }
     ],
     permission: 'employee'
