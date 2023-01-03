@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import React, { useState } from 'react'
-import { AiOutlineFilePdf } from 'react-icons/ai'
+import { useState } from 'react'
 
 import CVDropZone from '@component/Employee/CVDropZone'
 import DashboarHeading from '@component/Shared/DashboardHeading'
