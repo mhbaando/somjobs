@@ -87,7 +87,7 @@ const EmployeeHome = (): JSX.Element => {
 
       {/* Recent Applid Jobs */}
       <div className='w-full'>
-        <h2 className='text-xl font-semibold mb-6'>Related Jobs</h2>
+        <h2 className='text-xl font-semibold mb-6'>Recent Applied Jobs</h2>
         <div className='grid gird-cols-1 md:grid-cols-2 gap-4'>
           <JobCard
             jobName='Product Designer / UI Designer'
