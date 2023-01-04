@@ -15,8 +15,9 @@ const EmployeeProfile = lazy(async () => await import('@pages/Dashboards/Employe
 const EmployeeResume = lazy(async () => await import('@pages/Dashboards/Employee/CvManager'))
 const EmployeeAppliedJobs = lazy(async () => await import('@pages/Dashboards/Employee/AppliedJobs'))
 
-// shared page
+// shared page btw employee & Company
 const ChangePassword = lazy(async () => await import('@pages/Dashboards/ChangePassword'))
+const DeleteUser = lazy(async () => await import('@pages/Dashboards/Delete'))
 
 const publicRoutes: PublicRoute[] = [
   {
@@ -70,6 +71,10 @@ const privateRoutes: PrivateRoute[] = [
       {
         path: 'change-password',
         Child: ChangePassword
+      },
+      {
+        path: 'delete',
+        Child: DeleteUser
       }
     ],
     permission: 'employee'
