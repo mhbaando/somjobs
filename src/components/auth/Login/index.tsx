@@ -47,6 +47,9 @@ const LoginForm = (): React.ReactElement => {
                     className='text-red-500 text-sm pt-1 pl-1'
                   />
                 </div>
+                <label htmlFor='password' className='block mb-2 text-gray-900'>
+                  Passowrd
+                </label>
                 <Field
                   type='password'
                   name='password'
