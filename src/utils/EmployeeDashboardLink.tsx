@@ -26,7 +26,7 @@ const EmployeeDashboardLink = [
     icon: <BsBriefcase className='text-2xl' />
   },
   {
-    name: 'ChangePassword',
+    name: 'Change Password',
     path: '/employee/change-password',
     icon: <MdOutlineLockOpen className='text-2xl' />
   },
