@@ -80,11 +80,11 @@ const RegisterForm = (): React.ReactElement => {
                 <Field
                   type='text'
                   name='fullname'
-                  placeHolder='john@gmail.com'
+                  placeholder='john@gmail.com'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full'
                 />
                 <div className='h-5 mb-2'>
-                  <ErrorMessage name='fullname' component='div' className='text-red-500 text-sm ' />
+                  <ErrorMessage name='fullname' component='p' className='text-red-500 text-sm ' />
                 </div>
                 <label htmlFor='email' className='block mb-2 text-gray-900'>
                   Email <span className='text-red-500'>*</span>
@@ -92,7 +92,7 @@ const RegisterForm = (): React.ReactElement => {
                 <Field
                   type='email'
                   name='email'
-                  placeHolder='john@gmail.com'
+                  placeholder='john@gmail.com'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full'
                 />
                 <div className='h-5 mb-2'>
@@ -105,7 +105,7 @@ const RegisterForm = (): React.ReactElement => {
                 <Field
                   type='password'
                   name='password'
-                  placeHolder='password'
+                  placeholder='password'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full mt-2'
                 />
                 <div className='min-h-[20px] mb-2'>
@@ -122,7 +122,7 @@ const RegisterForm = (): React.ReactElement => {
                 <Field
                   type='password'
                   name='confirmpassword'
-                  placeHolder='retype password'
+                  placeholder='retype password'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full mt-2'
                 />
                 <div className='h-5'>
