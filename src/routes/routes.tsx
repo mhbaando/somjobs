@@ -8,7 +8,7 @@ const Register = lazy(async () => await import('@pages/auth/Register'))
 const Jobs = lazy(async () => await import('@pages/jobs'))
 const Job = lazy(async () => await import('@pages/jobs/Job'))
 
-// private pages
+// private pages for emoployees
 const EmployeeDashboard = lazy(async () => await import('@pages/Dashboards/Employee/Dashboard'))
 const EmployeeHome = lazy(async () => await import('@pages/Dashboards/Employee'))
 const EmployeeProfile = lazy(async () => await import('@pages/Dashboards/Employee/Profile'))
@@ -18,6 +18,10 @@ const EmployeeAppliedJobs = lazy(async () => await import('@pages/Dashboards/Emp
 // shared page btw employee & Company
 const ChangePassword = lazy(async () => await import('@pages/Dashboards/ChangePassword'))
 const DeleteUser = lazy(async () => await import('@pages/Dashboards/Delete'))
+
+// private page for company
+const CompanyDahsboard = lazy(async () => await import('@pages/Dashboards/Compnay/Dahsboard'))
+const CompanyHome = lazy(async () => await import('@pages/Dashboards/Compnay'))
 
 const publicRoutes: PublicRoute[] = [
   {
@@ -78,6 +82,41 @@ const privateRoutes: PrivateRoute[] = [
       }
     ],
     permission: 'employee'
+  },
+  {
+    path: '/company',
+    Element: CompanyDahsboard,
+    permission: 'company',
+    nested: [
+      {
+        path: '',
+        Child: CompanyHome
+      },
+      {
+        path: 'profile',
+        Child: CompanyHome
+      },
+      {
+        path: 'resume',
+        Child: CompanyHome
+      },
+      {
+        path: 'jobs',
+        Child: CompanyHome
+      },
+      {
+        path: 'applicants',
+        Child: CompanyHome
+      },
+      {
+        path: 'change-password',
+        Child: ChangePassword
+      },
+      {
+        path: 'delete',
+        Child: DeleteUser
+      }
+    ]
   }
 ]
 
