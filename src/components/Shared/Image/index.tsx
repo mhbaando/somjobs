@@ -55,6 +55,7 @@ const ImageUpploader: React.FC<IImageUpploader> = ({
             if (fileReader.readyState === 2) {
               setImageFile(fileReader.result!)
               setFieldValue('image', fileReader.result!)
+              setImageUpploadError('')
             }
           }
           fileReader.readAsDataURL(e.target.files![0])
