@@ -22,6 +22,8 @@ const DeleteUser = lazy(async () => await import('@pages/Dashboards/Delete'))
 // private page for company
 const CompanyDahsboard = lazy(async () => await import('@pages/Dashboards/Compnay/Dahsboard'))
 const CompanyHome = lazy(async () => await import('@pages/Dashboards/Compnay'))
+const CompanyProfile = lazy(async () => await import('@pages/Dashboards/Compnay/Profile'))
+const CompanyPostJob = lazy(async () => await import('@pages/Dashboards/Compnay/PostJob'))
 
 const publicRoutes: PublicRoute[] = [
   {
@@ -94,11 +96,11 @@ const privateRoutes: PrivateRoute[] = [
       },
       {
         path: 'profile',
-        Child: CompanyHome
+        Child: CompanyProfile
       },
       {
-        path: 'resume',
-        Child: CompanyHome
+        path: 'post-job',
+        Child: CompanyPostJob
       },
       {
         path: 'jobs',
