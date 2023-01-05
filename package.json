@@ -27,6 +27,7 @@
     "react-flags-select": "^2.2.3",
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.6.1",
+    "react-slugify": "^2.1.0",
     "sass": "^1.57.1"
   },
   "devDependencies": {
