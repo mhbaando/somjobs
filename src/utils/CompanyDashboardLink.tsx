@@ -20,7 +20,7 @@ const CompanyDashboardLink = [
   },
   {
     name: 'Post a new job',
-    path: '/company/resume',
+    path: '/company/post-job',
     icon: <BiSend className='text-2xl' />
   },
   {
