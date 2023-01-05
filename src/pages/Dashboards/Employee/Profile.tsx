@@ -1,4 +1,4 @@
-import UserInfoForm from '@component/Employee/UserInfoForm'
+import UserInfoForm from '@component/Shared/UserInfoForm'
 import DashboarHeading from '@component/Shared/DashboardHeading'
 
 const EmployeeProfile = (): JSX.Element => {
