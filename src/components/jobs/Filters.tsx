@@ -1,16 +1,13 @@
 /* eslint-disable react/display-name */
-import { Ref, forwardRef } from 'react'
+import { forwardRef } from 'react'
 import DatePicker from 'react-datepicker'
 import { Formik, Form, Field } from 'formik'
-import 'react-datepicker/dist/react-datepicker.css'
 
 import { FiFilter } from 'react-icons/fi'
 import Button from '@component/Shared/Button'
+import { level, type } from '@utils/JobsUtil'
 
 const JobFilters = (): React.ReactElement => {
-  const jobTypes = ['Full Time', 'Part Time', 'Contract']
-  const joblevel = ['Junior', 'Mid-Senior', 'Senior']
-
   interface Props {
     children?: string
     onClick?: (name: string, val: any) => void
@@ -32,7 +29,6 @@ const JobFilters = (): React.ReactElement => {
       <Formik
         initialValues={{ jobType: '', datePosted: new Date(), level: '' }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values)
           setTimeout(() => {
             setSubmitting(false)
           }, 4000)
@@ -46,7 +42,7 @@ const JobFilters = (): React.ReactElement => {
               className='text-gray-900 text-sm rounded-lg block p-2 !outline-none bg-blue-50'
             >
               <option value='' label='Select type' />
-              {jobTypes.map((job, i) => (
+              {type.map((job, i) => (
                 <option key={job} value={job} label={job} />
               ))}
             </Field>
@@ -56,7 +52,7 @@ const JobFilters = (): React.ReactElement => {
               className='text-gray-900 text-sm rounded-lg block p-2 !outline-none bg-blue-50'
             >
               <option value='' label='Select level' />
-              {joblevel.map((job) => (
+              {level.map((job) => (
                 <option key={job} value={job} label={job} />
               ))}
             </Field>
@@ -70,9 +66,11 @@ const JobFilters = (): React.ReactElement => {
                   onChange={(date) => setFieldValue('datePosted', date)}
                   customInput={<DateTimeRendere />}
                   dateFormat='MMM-dd-yyyy'
+                  maxDate={new Date()}
                 />
               )}
             />
+
             <Button
               type='submit'
               handleClick={handleSubmit}
