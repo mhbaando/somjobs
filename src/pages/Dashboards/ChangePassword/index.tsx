@@ -23,7 +23,7 @@ const ChangePassword = (): JSX.Element => {
               if (values.newPassword.trim().length === 0) {
                 errors.newPassword = 'New password is required'
               } else if (values.password === values.newPassword) {
-                errors.newPassword = 'Old Password can\'t be the same with the new password'
+                errors.newPassword = 'Old Password cant be the same with the new password'
               } else if (
                 !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i.test(
                   values.newPassword
@@ -41,7 +41,6 @@ const ChangePassword = (): JSX.Element => {
               return errors
             }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log(values)
               setTimeout(() => {
                 setSubmitting(false)
               }, 4000)
