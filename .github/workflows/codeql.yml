@@ -43,8 +43,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Cache
-      uses: actions/cache@v3.2.2
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
@@ -77,4 +76,5 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
+
 
