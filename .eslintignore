@@ -3,3 +3,4 @@ vite.config.ts
 dist
 vite-env.d.ts
 commitlint.config.js
+.github
