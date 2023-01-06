@@ -48,7 +48,6 @@ const UserInfoForm = (): JSX.Element => {
         return errors
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values)
         setTimeout(() => {
           setSubmitting(false)
         }, 4000)
