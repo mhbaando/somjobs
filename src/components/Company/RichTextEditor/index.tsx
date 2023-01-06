@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Editor } from 'react-draft-wysiwyg'
-import { EditorState, convertToRaw } from 'draft-js'
+import { convertToHTML } from 'draft-convert'
+import { EditorState } from 'draft-js'
 import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const RichTextEditor = ({ setFieldValue }: any): JSX.Element => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
   const contentState = editorState.getCurrentContent()
+  const rawHTML = convertToHTML(contentState)
 
   return (
     <Editor
@@ -13,7 +15,7 @@ const RichTextEditor = ({ setFieldValue }: any): JSX.Element => {
       editorState={editorState}
       onEditorStateChange={(state) => {
         setEditorState(state)
-        setFieldValue('description', convertToRaw(editorState))
+        setFieldValue('description', { content: rawHTML })
       }}
     />
   )
