@@ -20,7 +20,6 @@ const Hero = (): React.ReactElement => {
           <Formik
             initialValues={{ jobname: '', joblocation: '', allcetogries: '' }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log(values)
               setTimeout(() => {
                 setSubmitting(false)
               }, 4000)
