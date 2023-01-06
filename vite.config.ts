@@ -51,5 +51,8 @@ export default defineConfig({
   },
   server: {
     host: true
+  },
+  define: {
+    global: 'window'
   }
 })
