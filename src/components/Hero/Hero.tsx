@@ -54,7 +54,6 @@ const Hero = (): React.ReactElement => {
               <Button
                 type='button'
                 additionalClasses=' px-3 py-2 rounded-md cursor-pointer w-full md:w-auto'
-                handleClick={() => console.log('click')}
               >
                 Find Jobs
               </Button>
