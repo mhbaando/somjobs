@@ -1,9 +1,12 @@
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import Button from '@component/Shared/Button'
 
 const LoginForm = (): React.ReactElement => {
+  const env = import.meta.env
+
   return (
     <div className='flex items-center  justify-center w-full h-full relative z-10'>
       <div className='flex flex-col items-center justify-center w-full h-full '>
@@ -23,10 +26,9 @@ const LoginForm = (): React.ReactElement => {
               }
               return errors
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                setSubmitting(false)
-              }, 4000)
+            onSubmit={async (values, { setSubmitting }) => {
+              const { data } = await axios.post(`${env.VITE_API_URL}/api/`)
+              console.log(data)
             }}
           >
             {({ isSubmitting }) => (

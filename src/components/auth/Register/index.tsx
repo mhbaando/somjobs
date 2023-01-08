@@ -1,11 +1,15 @@
 import { useState } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { AiOutlineUser } from 'react-icons/ai'
 import { BsBriefcase } from 'react-icons/bs'
 
 import Button from '@component/Shared/Button'
+
 const RegisterForm = (): React.ReactElement => {
+  const env = import.meta.env
+
   const accountType = ['Candidadate', 'Employer']
   const [selectedType, setSelectedType] = useState(accountType[0])
 
@@ -37,12 +41,9 @@ const RegisterForm = (): React.ReactElement => {
             })}
           </div>
           <Formik
-            initialValues={{ fullname: '', email: '', password: '', confirmpassword: '' }}
+            initialValues={{ email: '', password: '', confirmpassword: '' }}
             validate={(values) => {
               const errors: any = {}
-              if (values.fullname.trim().length === 0) {
-                errors.fullname = 'Name is required'
-              }
               if (values.email.trim().length === 0) {
                 errors.email = 'Email Is Required'
               } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -66,26 +67,19 @@ const RegisterForm = (): React.ReactElement => {
               }
               return errors
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                setSubmitting(false)
-              }, 4000)
+            onSubmit={async (values, { setSubmitting }) => {
+              const { data } = await axios.post('http://127.0.0.1:5000/api/v1/auth', {
+                email: values.email,
+                password: values.password
+              })
+
+              console.log(data)
+              // save the token to the local storage
+              localStorage.setItem('jwt', JSON.stringify(data.token))
             }}
           >
             {({ isSubmitting }) => (
               <Form>
-                <label htmlFor='fullname' className='block mb-2 text-gray-900'>
-                  Full Name <span className='text-red-500'>*</span>
-                </label>
-                <Field
-                  type='text'
-                  name='fullname'
-                  placeholder='john@gmail.com'
-                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full'
-                />
-                <div className='h-5 mb-2'>
-                  <ErrorMessage name='fullname' component='p' className='text-red-500 text-sm ' />
-                </div>
                 <label htmlFor='email' className='block mb-2 text-gray-900'>
                   Email <span className='text-red-500'>*</span>
                 </label>
