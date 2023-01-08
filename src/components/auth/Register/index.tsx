@@ -10,7 +10,7 @@ import Button from '@component/Shared/Button'
 const RegisterForm = (): React.ReactElement => {
   const env = import.meta.env
 
-  const accountType = ['Candidadate', 'Employer']
+  const accountType = ['employee', 'company']
   const [selectedType, setSelectedType] = useState(accountType[0])
 
   return (
@@ -34,8 +34,8 @@ const RegisterForm = (): React.ReactElement => {
                     setSelectedType(acnt)
                   }}
                 >
-                  <span className='mr-2'>{i === 0 ? <AiOutlineUser /> : <BsBriefcase />}</span>
-                  {acnt}
+                  <span className='mr-2 '>{i === 0 ? <AiOutlineUser /> : <BsBriefcase />}</span>
+                  <p className='capitalize'> {acnt}</p>
                 </Button>
               )
             })}
@@ -68,14 +68,13 @@ const RegisterForm = (): React.ReactElement => {
               return errors
             }}
             onSubmit={async (values, { setSubmitting }) => {
-              const { data } = await axios.post('http://127.0.0.1:5000/api/v1/auth', {
+              const { data } = await axios.post('http://127.0.0.1:5000/auth/register', {
                 email: values.email,
-                password: values.password
+                password: values.password,
+                role: selectedType
               })
 
               console.log(data)
-              // save the token to the local storage
-              localStorage.setItem('jwt', JSON.stringify(data.token))
             }}
           >
             {({ isSubmitting }) => (
