@@ -39,3 +39,4 @@ dist/
 build/
 *.egg-info/
 backend/.env
+*.env
