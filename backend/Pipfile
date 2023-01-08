@@ -11,6 +11,8 @@ flask-sqlalchemy = "*"
 psycopg2 = "*"
 flask-cors = "*"
 pyrebase4 = "*"
+flask-bcrypt = "*"
+pyjwt = "*"
 
 [dev-packages]
 
