@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { toast } from 'react-hot-toast'
 
 import Button from '@component/Shared/Button'
 
@@ -27,8 +28,18 @@ const LoginForm = (): React.ReactElement => {
               return errors
             }}
             onSubmit={async (values, { setSubmitting }) => {
-              const { data } = await axios.post(`${env.VITE_API_URL}/api/`)
-              console.log(data)
+              try {
+                const { data } = await axios.post('http://127.0.0.1:5000/auth', {
+                  email: values.email,
+                  password: values.password
+                })
+              } catch (error: any) {
+                const statusCode = +error.message.slice(-3)
+                if (statusCode === 401) toast.error('Invalid Credentials')
+                if (statusCode === 404) toast.error('User Doesnt exist')
+
+                toast.error('an error accured')
+              }
             }}
           >
             {({ isSubmitting }) => (
@@ -50,7 +61,7 @@ const LoginForm = (): React.ReactElement => {
                   />
                 </div>
                 <label htmlFor='password' className='block mb-2 text-gray-900'>
-                  Passowrd
+                  Password
                 </label>
                 <Field
                   type='password'
