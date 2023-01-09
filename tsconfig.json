@@ -26,7 +26,8 @@
       "@nots/*": ["./src/notifications/*"],
       "@assets/*": ["./src/assets/*"],
       "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@context/*": ["./src/context/*"]
     }
   },
   "include": ["src"],
