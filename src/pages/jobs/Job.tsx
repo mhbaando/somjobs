@@ -5,7 +5,7 @@ import { BsBookmark, BsBriefcase, BsCalendarDate } from 'react-icons/bs'
 
 import DarkNav from '@component/Shared/Nav/Nav'
 
-import Placeholder from '@assets/misc/cta.png'
+import placeholder from '@assets/misc/cta.png'
 import Somtel from '@assets/clients/premier.png'
 import Button from '@component/Shared/Button'
 import Footer from '@ui/molecules/Footer/Footer'
@@ -23,7 +23,7 @@ const Job = (): JSX.Element => {
             <div className='col-span-2'>
               <JobHeader />
               <img
-                src={Placeholder}
+                src={placeholder}
                 alt='Job Picture'
                 className='w-full h-[350px] mt-12 object-cover object-center rounded-md'
               />
