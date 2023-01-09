@@ -1,17 +1,20 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { HiOutlineMenuAlt3 } from 'react-icons/hi'
 
 import Menus from '@utils/MenuLinks'
 import Logo from '@assets/logo/LogoColor.svg'
 import Button from '@component/Shared/Button'
 import MobileNav from './MobileNav'
+import useAuth from '@hooks/auth'
 interface Nav {
   additionalClass?: string
 }
 const DarkNav: React.FC<Nav> = ({ additionalClass }): React.ReactElement => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const auth = useAuth()
   const navigate = useNavigate()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   // disable scroll when the side menue is open
   useEffect(() => {
@@ -51,12 +54,27 @@ const DarkNav: React.FC<Nav> = ({ additionalClass }): React.ReactElement => {
             </div>
           </div>
           <div className='flex items-center gap-5'>
+            {auth.user?.role && (
+              <Link
+                to={auth.user.role === 'employee' ? '/employee' : '/company'}
+                className='cursor-pointer scale-100 hover:scale-95 hover:text-primaryBlue transition-all duration-300 ease-in-out'
+              >
+                Dashboard
+              </Link>
+            )}
             <Button
               type='button'
               additionalClasses='text-sm py-2 px-6 rounded-lg hidden sm:inline-block'
-              handleClick={() => navigate('/login')}
+              handleClick={() => {
+                if (auth.user?.role) {
+                  auth.logout()
+                  navigate('/')
+                } else {
+                  navigate('/login')
+                }
+              }}
             >
-              Sign In
+              {auth.user?.role ? 'Sign Out' : 'Sign In'}
             </Button>
             <HiOutlineMenuAlt3
               className='text-2xl text-primaryDark cursor-pointer md:hidden'
