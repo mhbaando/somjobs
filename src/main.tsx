@@ -3,17 +3,21 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
-
-import App from './App'
-import './styles/index.scss'
 import 'react-datepicker/dist/react-datepicker.css'
 
+import App from './App'
+
+import './styles/index.scss'
+import { AuthProvider } from '@context/auth'
+
 render(
-  <React.StrictMode>
+  <>
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
       <Toaster />
     </BrowserRouter>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 )
