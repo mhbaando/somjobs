@@ -10,12 +10,6 @@ import jwtDecode from 'jwt-decode'
 const LoginForm = (): React.ReactElement => {
   const auth = useAuth()
   const navigate = useNavigate()
-  const notify = (): any =>
-    toast('Fill Your Profile', {
-      style: {
-        color: 'red'
-      }
-    })
 
   return (
     <div className='flex items-center  justify-center w-full h-full relative z-10'>
