@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { AiOutlineUser } from 'react-icons/ai'
 import { BsBriefcase } from 'react-icons/bs'
 
 import Button from '@component/Shared/Button'
+import toast from 'react-hot-toast'
+import useAuth from '@hooks/auth'
 
 const RegisterForm = (): React.ReactElement => {
-  const env = import.meta.env
-
+  const auth = useAuth()
+  const navigate = useNavigate()
   const accountType = ['employee', 'company']
   const [selectedType, setSelectedType] = useState(accountType[0])
 
@@ -68,13 +70,30 @@ const RegisterForm = (): React.ReactElement => {
               return errors
             }}
             onSubmit={async (values, { setSubmitting }) => {
-              const { data } = await axios.post('http://127.0.0.1:5000/auth/register', {
-                email: values.email,
-                password: values.password,
-                role: selectedType
-              })
+              try {
+                const { data } = await axios.post('http://127.0.0.1:5000/auth/register', {
+                  email: values.email,
+                  password: values.password,
+                  role: selectedType
+                })
 
-              console.log(data)
+                // loging the registered user
+                auth.login(data.token)
+
+                navigate('/')
+              } catch (err: any) {
+                // handler errors here
+                const errorCode = err?.response.status
+                if (errorCode === 409) {
+                  return toast.error('User already exists')
+                }
+                if (errorCode === 400) {
+                  return toast.error('Bad request provide all information')
+                }
+
+                // all other errors
+                return toast.error('An error Accured')
+              }
             }}
           >
             {({ isSubmitting }) => (
