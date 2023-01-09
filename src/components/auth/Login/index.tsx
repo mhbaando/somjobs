@@ -1,12 +1,21 @@
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { toast } from 'react-hot-toast'
 
 import Button from '@component/Shared/Button'
+import useAuth from '@hooks/auth'
+import jwtDecode from 'jwt-decode'
 
 const LoginForm = (): React.ReactElement => {
-  const env = import.meta.env
+  const auth = useAuth()
+  const navigate = useNavigate()
+  const notify = (): any =>
+    toast('Fill Your Profile', {
+      style: {
+        color: 'red'
+      }
+    })
 
   return (
     <div className='flex items-center  justify-center w-full h-full relative z-10'>
@@ -33,12 +42,22 @@ const LoginForm = (): React.ReactElement => {
                   email: values.email,
                   password: values.password
                 })
-              } catch (error: any) {
-                const statusCode = +error.message.slice(-3)
-                if (statusCode === 401) toast.error('Invalid Credentials')
-                if (statusCode === 404) toast.error('User Doesnt exist')
 
-                toast.error('an error accured')
+                // extract token
+                const { token } = data
+                auth.login(token)
+
+                navigate('/')
+              } catch (err: any) {
+                const errorCode = err?.response.status
+                if (errorCode === 404) {
+                  return toast.error('User doesnt exsist')
+                }
+                if (errorCode === 401) {
+                  return toast.error('Invalid Credentials')
+                }
+
+                return toast.error('An error Accured')
               }
             }}
           >
@@ -50,7 +69,7 @@ const LoginForm = (): React.ReactElement => {
                 <Field
                   type='email'
                   name='email'
-                  placeHolder='Email'
+                  placeholder='Email'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full'
                 />
                 <div className='h-5'>
@@ -67,7 +86,7 @@ const LoginForm = (): React.ReactElement => {
                   type='password'
                   name='password'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full mt-2'
-                  placeHolder='Password'
+                  placeholder='Password'
                 />
                 <div className='h-5'>
                   <ErrorMessage
