@@ -5,10 +5,10 @@ import { Routes, Route } from 'react-router-dom'
 import NotFound from '@error/404'
 import Loader from './components/Shared/Loader'
 import { privateRoutes, publicRoutes } from './routes/routes'
+import useAuth from '@hooks/auth'
 
 const App = (): React.ReactElement => {
-  // TODO: impelement Guard and permission controll for the routes
-  const auth = true
+  const auth = useAuth()
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
@@ -26,8 +26,8 @@ const App = (): React.ReactElement => {
           return <Route key={path} path={path} element={<Element />} />
         })}
         {/* privare routes */}
-        {privateRoutes.map(({ path, Element, nested }) => {
-          if (auth) {
+        {privateRoutes.map(({ path, Element, permission, nested }) => {
+          if (auth.user?.role === permission) {
             if (nested.length > 0) {
               return (
                 <Route key={path} path={path} element={<Element />}>
