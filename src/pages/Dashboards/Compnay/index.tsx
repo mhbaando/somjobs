@@ -6,7 +6,7 @@ import { BsBriefcase, BsSave } from 'react-icons/bs'
 import { MdFavoriteBorder } from 'react-icons/md'
 import { CgTimer } from 'react-icons/cg'
 
-import UserPlaceHolder from '@assets/misc/user.jpg'
+import Userplaceholder from '@assets/misc/user.jpg'
 import RecentApplicantCard from '@component/Cards/RecentApplicantCard'
 
 const CompanyHome = (): JSX.Element => {
@@ -92,37 +92,37 @@ const CompanyHome = (): JSX.Element => {
         <h2 className='text-xl font-semibold mb-6'>Recent Applicants</h2>
         <div className='grid gird-cols-1 lg:grid-cols-2 gap-4'>
           <RecentApplicantCard
-            applicantsImage={UserPlaceHolder}
+            applicantsImage={Userplaceholder}
             applicantsName='Kamaal Abshir'
             applicantsTitle='Front End Developer'
             appliedJob='Senior Front End'
           />
           <RecentApplicantCard
-            applicantsImage={UserPlaceHolder}
+            applicantsImage={Userplaceholder}
             applicantsName='Kamaal Abshir'
             applicantsTitle='Front End Developer'
             appliedJob='Senior Front End'
           />
           <RecentApplicantCard
-            applicantsImage={UserPlaceHolder}
+            applicantsImage={Userplaceholder}
             applicantsName='Kamaal Abshir'
             applicantsTitle='Front End Developer'
             appliedJob='Senior Front End'
           />
           <RecentApplicantCard
-            applicantsImage={UserPlaceHolder}
+            applicantsImage={Userplaceholder}
             applicantsName='Kamaal Abshir'
             applicantsTitle='Front End Developer'
             appliedJob='Senior Front End'
           />
           <RecentApplicantCard
-            applicantsImage={UserPlaceHolder}
+            applicantsImage={Userplaceholder}
             applicantsName='Kamaal Abshir'
             applicantsTitle='Front End Developer'
             appliedJob='Senior Front End'
           />
           <RecentApplicantCard
-            applicantsImage={UserPlaceHolder}
+            applicantsImage={Userplaceholder}
             applicantsName='Kamaal Abshir'
             applicantsTitle='Front End Developer'
             appliedJob='Senior Front End'
