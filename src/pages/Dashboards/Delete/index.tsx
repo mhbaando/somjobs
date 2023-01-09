@@ -43,7 +43,7 @@ const DeleteUser = (): JSX.Element => {
                   type='password'
                   name='password'
                   className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 w-full mt-2'
-                  placeHolder='Password'
+                  placeholder='Password'
                 />
                 <div className='h-5'>
                   <ErrorMessage
