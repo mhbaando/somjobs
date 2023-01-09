@@ -57,6 +57,7 @@ const privateRoutes: PrivateRoute[] = [
   {
     path: '/employee',
     Element: EmployeeDashboard,
+    permission: 'employee',
     nested: [
       {
         path: '',
@@ -82,8 +83,7 @@ const privateRoutes: PrivateRoute[] = [
         path: 'delete',
         Child: DeleteUser
       }
-    ],
-    permission: 'employee'
+    ]
   },
   {
     path: '/company',
