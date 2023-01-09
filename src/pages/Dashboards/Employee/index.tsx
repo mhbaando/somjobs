@@ -6,8 +6,22 @@ import Somtel from '@assets/clients/premier.png'
 import LineChart from '@component/Shared/Chart/Area'
 import JobCard from '@component/Cards/jobscard'
 import DashboarHeading from '@component/Shared/DashboardHeading'
+import useAuth from '@hooks/auth'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
+import { useEffect } from 'react'
 
 const EmployeeHome = (): JSX.Element => {
+  const auth = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (auth.user?.owner.length === 0) {
+      toast.error('Fill your profile')
+      navigate('/employee/profile')
+    }
+  }, [])
+
   return (
     <div className='w-full h-full flex flex-col items-center justify-center'>
       <DashboarHeading heading='Welcome,' headingBold='Kamaal Ali' />
