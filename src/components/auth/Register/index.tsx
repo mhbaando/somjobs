@@ -24,20 +24,22 @@ const RegisterForm = (): React.ReactElement => {
             <span className='text-red-500'>*</span> Means required
           </p>
           <div className='w-full flex items-center justify-between gap-5 mb-5  '>
-            {accountType.map((acnt, i) => {
+            {accountType.map((account, i) => {
               return (
                 <Button
                   key={i}
                   type='button'
                   additionalClasses={`${
-                    selectedType === acnt ? '!bg-secondaryDark' : 'bg-yellow-100 text-secondaryDark'
+                    selectedType === account
+                      ? '!bg-secondaryDark'
+                      : 'bg-yellow-100 text-secondaryDark'
                   } w-1/2 py-2 rounded-md transition-all duration-300 ease-in-out`}
                   handleClick={() => {
-                    setSelectedType(acnt)
+                    setSelectedType(account)
                   }}
                 >
                   <span className='mr-2 '>{i === 0 ? <AiOutlineUser /> : <BsBriefcase />}</span>
-                  <p className='capitalize'> {acnt}</p>
+                  <p className='capitalize'> {account}</p>
                 </Button>
               )
             })}
