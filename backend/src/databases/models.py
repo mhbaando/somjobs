@@ -20,12 +20,32 @@ class Employee(db.Model):
     summary = db.Column(db.Text)
     github_link = db.Column(db.Text)
     linkedin_link = db.Column(db.Text)
-    image = db.Column(db.LargeBinary)
+    image = db.Column(db.Text)
     cv_name = db.Column(db.String(12))
     cv = db.Column(db.LargeBinary)
     company = db.relationship("Company", backref="employee", lazy=True)
     user = db.relationship("User", backref="employee", lazy=True)
     created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+
+    def format(self):
+        return {
+            "id":self.id,
+            "full_name":self.full_name,
+            "email":self.email,
+            "phone" : self.phone,
+            "title" : self.title,
+            "country":self.country,
+            "city":self.city,
+            "summary":self.summary,
+            "github_link":self.github_link,
+            "linkedin_link":self.linkedin_link,
+            "image":self.image,
+            "cv_name":self.cv_name,
+            "cv":self.cv,
+            "company":self.company,
+            "created_at":self.created_at
+        }
+
 
 
 class User(db.Model):
