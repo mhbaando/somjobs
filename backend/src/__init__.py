@@ -2,19 +2,19 @@ import os
 
 from flask import Flask, abort, jsonify, request
 from flask_bcrypt import Bcrypt
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS,cross_origin
 from flask_migrate import Migrate
 
 # our modules db, and models
 from .auth import requires_auth
 from .auth.generate_token import generate_token
-from .databases.models import User, db
+from .databases.models import Employee, User, db
 
 
 # factory function
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
-    CORS(app)
+    cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
     app.app_context().push()
     DB_USER = os.environ.get("DB_USER")
@@ -40,7 +40,10 @@ def create_app(test_config=None):
             "Access-Control-Allow-Headers", "Content-Type,Authorization"
         )
         response.headers.add(
-            "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS"
+            "Access-Control-Allow-Origin", "*"
+        )
+        response.headers.add(
+            "Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE,OPTIONS"
         )
         return response
 
@@ -113,14 +116,119 @@ def create_app(test_config=None):
     # Protected
     # -------  Routes ---------- #
 
-    @app.get('/test')
-    @requires_auth('company')
-    def test_protected_route(jwt):
+    @app.post('/employee/profile')
+    @requires_auth('employee')
+    def register_user(jwt):        
+        data = request.get_json()
+        user_id = data.get('id')
+        full_name= data.get('full_name')
+        email = data.get('email')
+        phone = data.get('phone')
+        country = data.get('country')
+        city = data.get('city')
+        title = data.get('title')
+        summary = data.get('summary')
+        linkedin_link = data.get('linkedin_link')
+        github_link = data.get('github_link')
+        image = data.get('image')
+
+        try:
+            # all check are done on the front end 
+            new_user = Employee(
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                country = country,
+                city=city,
+                title=title,
+                summary=summary,
+                linkedin_link=linkedin_link,
+                github_link=github_link,
+                image=image
+            )
+            
+            db.session.add(new_user)
+            db.session.commit()
+            # update the user to the new owner 
+            exited_user = db.session.query(User).filter(User.id==user_id).first()
+            if exited_user is None:
+                abort(400)
+            exited_user.owner = new_user.id
+            db.session.commit()
+            token = generate_token(exited_user)
+            return {
+                'success':'True',
+                'token':token
+            }
+        except:
+            abort(400)
+            db.session.rollback()
+        finally:
+            db.session.close()
+
+
+    #  get user information
+    @app.get('/employee/profile/<id>')
+    @requires_auth('employee')
+    def get_user(jwt,id):
+        user = db.session.query(User).filter(User.id==id).first()
+        if user is None:
+            abort(404)
+
+        employee = db.session.query(Employee).filter(Employee.id == user.owner).first()
+        
+        if employee is None:
+            abort(404)
+
+        formatted_employee= employee.format()
+        
         return {
-            'success':'works',
+            'success':True,
+            'user': formatted_employee
         }
+    
+    # update user information
+    @app.patch('/employee/profile/<id>')
+    @requires_auth('employee')
+    def update_user(jwt,id):
+        data = request.get_json()
+        user_id = data.get('id')
+        full_name= data.get('full_name')
+        email = data.get('email')
+        phone = data.get('phone')
+        country = data.get('country')
+        city = data.get('city')
+        title = data.get('title')
+        summary = data.get('summary')
+        linkedin_link = data.get('linkedin_link')
+        github_link = data.get('github_link')
+        image = data.get('image')
 
+        employee = db.session.query(Employee).filter(Employee.id==user_id).first()
 
+        if employee is None:
+            abort(404)
+
+        employee.email = email
+        employee.phone = phone
+        employee.city = city
+        employee.image = image
+        employee.title = title
+        employee.summary = summary
+        employee.country = country
+        employee.full_name = full_name
+        employee.github_link = github_link
+        employee.linkedin_link = linkedin_link
+
+        db.session.commit()
+
+        formatter_user = employee.format()
+
+        return {
+            'success':True,
+            'user':formatter_user
+        }
+    
     @app.errorhandler(400)
     def bad_request(err):
         return {"success": False, "error": 400, "message": "Bad Request"}, 400
