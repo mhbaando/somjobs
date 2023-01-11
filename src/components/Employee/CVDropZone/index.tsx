@@ -1,20 +1,45 @@
 import Button from '@component/Shared/Button'
+import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 import React, { useCallback } from 'react'
 import Dropzone from 'react-dropzone'
+import { toast } from 'react-hot-toast'
 interface ICVDropZone {
+  cvFile: File
   setCvFile: (cfFile: any) => void
 }
-const CVDropZone: React.FC<ICVDropZone> = ({ setCvFile }): JSX.Element => {
+const CVDropZone: React.FC<ICVDropZone> = ({ setCvFile, cvFile }): JSX.Element => {
   const MAX_SIZE = 5242880
+  const token: string = localStorage.getItem('jwt')!
+  const { owner }: any = jwtDecode(token) // id of the logged in user
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+
+  const handleUppload = async (file: any): Promise<void> => {
+    try {
+      const { data } = await axios.post(
+        'http://127.0.0.1:5000/employee/uppload',
+        {
+          id: owner,
+          cv: file
+        },
+        config
+      )
+    } catch {
+      toast.error('unable to appload')
+    }
+  }
   const onDrop = useCallback((acceptedFiles: any[]) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader()
-      reader.onload = () => {
+      reader.onload = async () => {
         setCvFile(file)
       }
       reader.readAsArrayBuffer(file)
     })
   }, [])
+
   return (
     <Dropzone
       accept={{ 'application/pdf': ['.pdf'] }}
