@@ -85,13 +85,13 @@ const RegisterForm = (): React.ReactElement => {
                 navigate('/')
               } catch (err: any) {
                 // handler errors here
-                const errorCode = err?.response.status
-                if (errorCode === 409) {
-                  return toast.error('User already exists')
-                }
-                if (errorCode === 400) {
-                  return toast.error('Bad request provide all information')
-                }
+                // const errorCode = err?.response.status
+                // if (errorCode === 409) {
+                //   return toast.error('User already exists')
+                // }
+                // if (errorCode === 400) {
+                //   return toast.error('Bad request provide all information')
+                // }
 
                 // all other errors
                 return toast.error('An error Accured')

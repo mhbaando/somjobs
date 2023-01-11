@@ -43,15 +43,14 @@ const LoginForm = (): React.ReactElement => {
 
                 navigate('/')
               } catch (err: any) {
-                const errorCode = err?.response.status
-                if (errorCode === 404) {
-                  return toast.error('User doesnt exsist')
-                }
-                if (errorCode === 401) {
-                  return toast.error('Invalid Credentials')
-                }
+                // const errorCode = err?.response.status
+                // if (errorCode === 404) {
+                //   return toast.error('User doesnt exsist')
+                // } else if (errorCode === 401) {
+                //   return toast.error('Invalid Credentials')
+                // }
 
-                return toast.error('An error Accured')
+                return toast.error('an error accured')
               }
             }}
           >
