@@ -1,8 +1,23 @@
 import Button from '@component/Shared/Button'
 import DashboarHeading from '@component/Shared/DashboardHeading'
+import useAuth from '@hooks/auth'
+import axios from 'axios'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { toast } from 'react-hot-toast'
 
 const ChangePassword = (): JSX.Element => {
+  const auth = useAuth()
+  const id = auth.user?.sub
+  const role = auth.user?.role
+
+  const token = localStorage.getItem('jwt')
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  }
+
   return (
     <div>
       <DashboarHeading heading='Change' headingBold='Password' />
@@ -40,10 +55,26 @@ const ChangePassword = (): JSX.Element => {
               }
               return errors
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                setSubmitting(false)
-              }, 4000)
+            onSubmit={async (values, { setSubmitting }) => {
+              // check the user role
+              if (role === 'employee') {
+                try {
+                  const { data } = await axios.post(
+                    `http://127.0.0.1:5000/employee/change-password/${id}`,
+                    {
+                      old_password: values.password,
+                      new_password: values.newPassword
+                    },
+                    config
+                  )
+
+                  toast.success('Changed Succefully')
+                } catch (err) {
+                  toast.error('ann error accuer')
+                }
+              } else {
+                toast.error('company')
+              }
             }}
           >
             {({ isSubmitting }) => (
