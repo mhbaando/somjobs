@@ -8,7 +8,7 @@ from flask_migrate import Migrate
 # our modules db, and models
 from .auth import requires_auth
 from .auth.generate_token import generate_token
-from .databases.models import Employee, User, db
+from .databases.models import Employee, User, db,Company
 
 
 # factory function
@@ -79,7 +79,6 @@ def create_app(test_config=None):
         password = data.get("password", None)
         role = data.get("role", None)
 
-        print(email, password, role)
         if email is None or password is None or role is None:
             abort(400)
 
@@ -100,14 +99,16 @@ def create_app(test_config=None):
 
         # return back the current user
         registered_user = (
-            db.session.query(User.id, User.email, User.created_at, User.role)
+            db.session.query(User.id, User.email, User.created_at, User.role, User.owner)
             .filter(User.email == email)
             .first()
         )
 
         # fn generetas token
         token = generate_token(registered_user)
-        return {"success": True, "token": token}
+        return {"success": True, 
+        "token": token
+        }
 
 
 
@@ -151,6 +152,7 @@ def create_app(test_config=None):
             db.session.commit()
             # update the user to the new owner 
             exited_user = db.session.query(User).filter(User.id==user_id).first()
+            
             if exited_user is None:
                 abort(400)
             exited_user.owner = new_user.id
@@ -309,6 +311,130 @@ def create_app(test_config=None):
         }
 
         
+
+    @app.post('/company/profile')
+    @requires_auth('company')
+    def register_user_company(jwt): 
+        data = request.get_json()
+        user_id = data.get('id')
+        full_name= data.get('full_name')
+        email = data.get('email')
+        phone = data.get('phone')
+        country = data.get('country')
+        city = data.get('city')
+        title = data.get('title')
+        summary = data.get('summary')
+        linkedin_link = data.get('linkedin_link')
+        github_link = data.get('github_link')
+        image = data.get('image')
+
+        try:
+            # all check are done on the front end 
+            new_user = Employee(
+                full_name=full_name,
+                email=email,
+                phone=phone,
+                country = country,
+                city=city,
+                title=title,
+                summary=summary,
+                linkedin_link=linkedin_link,
+                github_link=github_link,
+                image=image
+            )
+            
+            db.session.add(new_user)
+            db.session.commit()
+            # update the user to the new owner 
+            exited_user = db.session.query(User).filter(User.id==user_id).first()
+            
+            if exited_user is None:
+                abort(400)
+            exited_user.owner = new_user.id
+            db.session.commit()
+            token = generate_token(exited_user)
+            return {
+                'success':'True',
+                'token':token
+            }
+        except:
+            abort(400)
+            db.session.rollback()
+        finally:
+            db.session.close()  
+
+
+     #  get company user information
+    @app.get('/company/profile/<id>')
+    @requires_auth('company')
+    def get_user_company(jwt,id):
+        user = db.session.query(User).filter(User.id==id).first()
+        if user is None:
+            abort(404)
+
+        employee = db.session.query(Employee).filter(Employee.id == user.owner).first()
+        
+        if employee is None:
+            abort(404)
+
+        formatted_employee= employee.format()
+        
+        return {
+            'success':True,
+            'user': formatted_employee
+        } 
+
+
+    @app.get('/company/<id>')
+    @requires_auth('company')
+    def get_company_info(jwt,id):
+        company = db.session.query(Company).filter(Company.id==id).first()
+
+        if company is None:
+            abort(404)
+
+        formatted_company = company.format()
+
+        return {
+            'success':True,
+            'company': formatted_company
+        }
+    
+    @app.post('/company/profile/<id>')
+    @requires_auth('company')
+    def register_company(jwt,id):
+        data = request.get_json()
+        name = data.get('name')
+        email = data.get('email')
+        website = data.get('website')
+        country = data.get('country')
+        city = data.get('city')
+        image = data.get('image')
+
+        # logged in user  
+        user = db.session.query(User).filter(User.id==id).first()
+        if user is None:
+            abort(404)
+
+        # employee
+        employee = db.session.query(Employee.id).filter(Employee.id == user.owner).first()
+        if employee is None:
+            abort(404)
+
+        new_company = Company(name=name, email=email,website=website,country=country,city=city,image=image)
+        db.session.add(new_company)
+        db.session.commit()
+
+        #  update the employe compnay
+        new_company.user = employee.id
+        db.session.commit()
+
+
+        return {
+            'success':True,
+            'company_id': int(new_company.id)
+        }
+
 
 
     @app.errorhandler(400)
