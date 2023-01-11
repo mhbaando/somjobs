@@ -3,18 +3,19 @@
 import Button from '@component/Shared/Button'
 import ImageUpploader from '@component/Shared/Image'
 import useAuth from '@hooks/auth'
-import isEmpty from '@utils/isEmpty'
 import axios from 'axios'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import jwtDecode from 'jwt-decode'
 import { useEffect, useState } from 'react'
 import ReactFlagsSelect from 'react-flags-select'
 import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const UserInfoForm = (): JSX.Element => {
   // TODO: sanitize user input
   const auth = useAuth()
+  const location = useLocation().pathname
+  const isCompany = location.includes('/company')
   const naviagte = useNavigate()
   const [imageFile, setImageFile] = useState(null)
   const [imageUpploadError, setImageUpploadError] = useState('')
@@ -46,7 +47,10 @@ const UserInfoForm = (): JSX.Element => {
     if (auth.user?.owner !== null) {
       const getData = async (): Promise<any> => {
         try {
-          const { data } = await axios.get(`http://127.0.0.1:5000/employee/profile/${sub}`, config)
+          const { data } = await axios.get(
+            `http://127.0.0.1:5000/${isCompany ? 'company/profile' : 'employee/profile'}/${sub}`,
+            config
+          )
           setUserData(data.user)
           setImageFile(data.user.image)
         } catch (err: any) {
@@ -87,12 +91,14 @@ const UserInfoForm = (): JSX.Element => {
       }}
       onSubmit={async (values) => {
         // check are we uppdaing or creating new user
-        if (auth.user?.owner !== null) {
+        if (auth.user?.owner !== '') {
           // update user
           const idToUpdate = userData.id
           try {
             const { data } = await axios.patch(
-              `http://127.0.0.1:5000/employee/profile/${idToUpdate}`,
+              `http://127.0.0.1:5000/${
+                isCompany ? 'company/profile' : 'employee/profile'
+              }/${idToUpdate}`,
               { ...values, id: idToUpdate },
               config
             )
@@ -108,13 +114,14 @@ const UserInfoForm = (): JSX.Element => {
           // create new user
           try {
             const { data } = await axios.post(
-              'http://127.0.0.1:5000/employee/profile',
+              `http://127.0.0.1:5000/${isCompany ? 'company/profile' : 'employee/profile'}`,
               { ...values, id: sub },
               config
             )
             // update the toke with the new owner
-            localStorage.setItem('jwt', data.token)
-            naviagte('/employee')
+
+            naviagte('/login')
+            auth.logout()
             toast.success('User Registered Succefully')
           } catch (err) {
             toast.error('an error accured')
@@ -285,7 +292,7 @@ const UserInfoForm = (): JSX.Element => {
               additionalClasses='px-10 py-3 rounded-md mt-5'
               disabled={isSubmitting}
             >
-              {auth.user?.owner !== null ? 'Update' : isSubmitting ? 'Saving ...' : 'save'}
+              {auth.user?.owner !== '' ? 'Update' : isSubmitting ? 'Saving ...' : 'save'}
             </Button>
           </div>
         </Form>
