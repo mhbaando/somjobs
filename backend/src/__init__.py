@@ -228,7 +228,89 @@ def create_app(test_config=None):
             'success':True,
             'user':formatter_user
         }
-    
+
+
+    # TODO: implement pdf file uppload 
+    @app.post('/employee/uppload')
+    @requires_auth()
+    def uppload_cv(jwt):
+        data = request.get_json()
+        id = data.get('id',None)
+        cv = request.files['cv']
+
+        # if id is None or cv is None:
+        #     abort(400)
+
+        user = db.session.query(Employee).filter(Employee.id==id).first()
+        
+        if user is None:
+            abort(404)
+        
+        # user.cv = 
+        print(cv)
+        return {
+            'success':True,
+            'cv':[]
+        }
+
+
+    @app.post('/employee/change-password/<id>')
+    @requires_auth()
+    def change_password(jwt,id):
+        data = request.get_json()
+        old_password= data.get('old_password',None)
+        new_password= data.get('new_password',None)
+
+        user = db.session.query(User).filter(User.id==id).first()
+        
+        if user is None:
+            print('here')
+            abort(404)
+        
+        if old_password is None or new_password is None:
+            abort(400)
+
+        # check hass password 
+        if not bcrypt.check_password_hash(user.password, old_password):
+            abort(401)
+       
+        hashed_pass = bcrypt.generate_password_hash(new_password).decode("utf8")
+        user.password = hashed_pass
+
+        db.session.commit()
+
+        return {
+            'success':True
+        }
+
+    @app.post('/employee/delete-user/<id>')
+    @requires_auth()
+    def delete_password(jwt,id):
+        data = request.get_json()
+        password= data.get('password',None)
+
+        if password is None:
+            abort(400)
+
+        user = db.session.query(User).filter(User.id==id).first()
+        if user is None:
+            abort(404)
+
+        employee = db.session.query(Employee).filter(Employee.id == user.owner).first()
+        if employee is None:
+            abort(404)
+
+        db.session.delete(user)
+        db.session.delete(employee)
+        db.session.commit()
+
+        return {
+            'success':True
+        }
+
+        
+
+
     @app.errorhandler(400)
     def bad_request(err):
         return {"success": False, "error": 400, "message": "Bad Request"}, 400
