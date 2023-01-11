@@ -1,15 +1,26 @@
-import JobCard from '@component/Cards/jobscard'
+import { useEffect } from 'react'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import LineChart from '@component/Shared/Chart/Area'
 import DashboarHeading from '@component/Shared/DashboardHeading'
 import { AiOutlineStar, AiOutlineCheckCircle } from 'react-icons/ai'
 import { BsBriefcase, BsSave } from 'react-icons/bs'
-import { MdFavoriteBorder } from 'react-icons/md'
 import { CgTimer } from 'react-icons/cg'
 
 import Userplaceholder from '@assets/misc/user.jpg'
 import RecentApplicantCard from '@component/Cards/RecentApplicantCard'
+import useAuth from '@hooks/auth'
 
 const CompanyHome = (): JSX.Element => {
+  const auth = useAuth()
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (auth.user?.owner.length === 0) {
+      toast.error('Fill your profile')
+      navigate('/company/profile')
+    }
+  }, [])
+
   return (
     <div className='w-full h-full flex flex-col items-center justify-center'>
       <DashboarHeading heading='Hello,' headingBold='Premier Bank' />
