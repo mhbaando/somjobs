@@ -1,8 +1,25 @@
 import Button from '@component/Shared/Button'
 import DashboarHeading from '@component/Shared/DashboardHeading'
+import useAuth from '@hooks/auth'
+import axios from 'axios'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const DeleteUser = (): JSX.Element => {
+  const auth = useAuth()
+  const id = auth.user?.sub
+  const role = auth.user?.role
+  const navigate = useNavigate()
+
+  const token = localStorage.getItem('jwt')
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  }
+
   return (
     <div>
       <DashboarHeading
@@ -28,10 +45,25 @@ const DeleteUser = (): JSX.Element => {
               }
               return errors
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                setSubmitting(false)
-              }, 4000)
+            onSubmit={async (values, { setSubmitting }) => {
+              if (role === 'employee') {
+                try {
+                  const { data } = await axios.post(
+                    `http://127.0.0.1:5000/employee/delete-user/${id}`,
+                    {
+                      password: values.password
+                    },
+                    config
+                  )
+                  navigate('/')
+                  auth.logout()
+                  toast.success('Delete succeefully')
+                } catch (err) {
+                  toast.error('an error accured')
+                }
+              } else {
+                console.log('com')
+              }
             }}
           >
             {({ isSubmitting }) => (
