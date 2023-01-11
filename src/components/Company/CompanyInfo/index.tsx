@@ -1,13 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@component/Shared/Button'
 import ImageUpploader from '@component/Shared/Image'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import ReactFlagsSelect from 'react-flags-select'
+import axios from 'axios'
+import jwtDecode from 'jwt-decode'
+import { toast } from 'react-hot-toast'
 
 const CompanyInfo = (): JSX.Element => {
   // TODO: sanitize user input
   const [imageFile, setImageFile] = useState({})
   const [imageUpploadError, setImageUpploadError] = useState('')
+
+  const token: string = localStorage.getItem('jwt')!
+  const { sub }: string = jwtDecode(token) // id of the logged in user
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  }
 
   const defaultValues = {
     name: '',
@@ -17,10 +26,32 @@ const CompanyInfo = (): JSX.Element => {
     country: '',
     city: ''
   }
+
+  const [companyData, setCompanyData] = useState(defaultValues)
+  useEffect(() => {
+    const id = localStorage.getItem('company_id')
+    const getCompanyData = async (): Promise<void> => {
+      try {
+        const { data } = await axios.get(`http://127.0.0.1:5000/company/${id}`, config)
+        setCompanyData(data.company)
+        setImageFile(data.company.image)
+      } catch (err) {
+        toast.error('an error accured ')
+      }
+    }
+
+    if (id != null) {
+      void getCompanyData()
+    }
+  }, [])
+
   return (
     <div className='w-full'>
       <Formik
-        initialValues={defaultValues}
+        initialValues={{
+          ...companyData
+        }}
+        enableReinitialize={true}
         validate={(values) => {
           const errors: any = {}
           if (values.name.trim().length === 0) {
@@ -44,10 +75,20 @@ const CompanyInfo = (): JSX.Element => {
           }
           return errors
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false)
-          }, 4000)
+        onSubmit={async (values, { setSubmitting }) => {
+          try {
+            const { data } = await axios.post(
+              `http://127.0.0.1:5000/company/profile/${sub}`,
+              {
+                ...values
+              },
+              config
+            )
+            toast.success('Company Registered Succefully')
+            localStorage.setItem('company_id', data.company_id)
+          } catch (err) {
+            toast.error('an error accured')
+          }
         }}
       >
         {({ isSubmitting, values, setFieldValue }) => (
