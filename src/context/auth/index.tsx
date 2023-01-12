@@ -60,7 +60,7 @@ const AuthProvider: React.FC<IAuthProvider> = ({ children }): JSX.Element => {
   }
 
   const logout = (): void => {
-    localStorage.removeItem('jwt')
+    localStorage.clear()
     setUser(null)
   }
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>
