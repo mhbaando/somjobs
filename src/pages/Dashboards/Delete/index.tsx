@@ -62,7 +62,20 @@ const DeleteUser = (): JSX.Element => {
                   toast.error('an error accured')
                 }
               } else {
-                console.log('com')
+                try {
+                  const { data } = await axios.post(
+                    `http://127.0.0.1:5000/company/delete-user/${id}`,
+                    {
+                      password: values.password
+                    },
+                    config
+                  )
+                  navigate('/')
+                  auth.logout()
+                  toast.success('Delete succeefully')
+                } catch (err) {
+                  toast.error('an error accured')
+                }
               }
             }}
           >
