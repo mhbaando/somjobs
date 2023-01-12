@@ -28,6 +28,7 @@ class Employee(db.Model):
     company = db.relationship("Company", backref="employee", lazy=True)
     user = db.relationship("User", backref="employee", lazy=True)
     created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    jobs = db.relationship("Job", backref="employee", lazy=True)
 
     def format(self):
         return {
@@ -77,6 +78,7 @@ class Company(db.Model):
     image = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     user = db.Column(db.Integer, db.ForeignKey("employee.id"))
+    jobs = db.relationship("Job", backref="company", lazy=True)
 
 
     def format(self):
@@ -89,3 +91,20 @@ class Company(db.Model):
             "city": self.city,
             "image": self.image,
         }
+
+
+class Job(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    name = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text)
+    image = db.Column(db.Text)
+    slug = db.Column(db.Text)
+    city = db.Column(db.String(10))
+    status = db.Column(db.String(20))
+    country = db.Column(db.String(10))
+    job_type = db.Column(db.String(32))
+    expereince = db.Column(db.String(10))
+    expiredDate = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    applied_user = db.Column(db.Integer, db.ForeignKey("employee.id"))
+    posted_user = db.Column(db.Integer, db.ForeignKey("company.id"))
