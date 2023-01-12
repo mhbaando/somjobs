@@ -73,7 +73,20 @@ const ChangePassword = (): JSX.Element => {
                   toast.error('ann error accuer')
                 }
               } else {
-                toast.error('company')
+                try {
+                  const { data } = await axios.post(
+                    `http://127.0.0.1:5000/company/change-password/${id}`,
+                    {
+                      old_password: values.password,
+                      new_password: values.newPassword
+                    },
+                    config
+                  )
+
+                  toast.success('Changed Succefully')
+                } catch (err) {
+                  toast.error('ann error accuer')
+                }
               }
             }}
           >
