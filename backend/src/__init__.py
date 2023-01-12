@@ -312,6 +312,9 @@ def create_app(test_config=None):
 
         
 
+    # --------- Company ---------
+    # register new user for company
+    # -------- Company --------
     @app.post('/company/profile')
     @requires_auth('company')
     def register_user_company(jwt): 
@@ -363,8 +366,55 @@ def create_app(test_config=None):
         finally:
             db.session.close()  
 
+    # ---------
+    # Update Company user info 
+    # --------
+    @app.patch('/company/profile/<id>')
+    @requires_auth('company')
+    def update_user_company(jwt,id):
+        data = request.get_json()
+        user_id = data.get('id')
+        full_name= data.get('full_name')
+        email = data.get('email')
+        phone = data.get('phone')
+        country = data.get('country')
+        city = data.get('city')
+        title = data.get('title')
+        summary = data.get('summary')
+        linkedin_link = data.get('linkedin_link')
+        github_link = data.get('github_link')
+        image = data.get('image')
 
-     #  get company user information
+        employee = db.session.query(Employee).filter(Employee.id==user_id).first()
+
+        if employee is None:
+            abort(404)
+
+        employee.email = email
+        employee.phone = phone
+        employee.city = city
+        employee.image = image
+        employee.title = title
+        employee.summary = summary
+        employee.country = country
+        employee.full_name = full_name
+        employee.github_link = github_link
+        employee.linkedin_link = linkedin_link
+
+        db.session.commit()
+
+        formatter_user = employee.format()
+
+        return {
+            'success':True,
+            'user':formatter_user
+        }
+
+
+
+    # ---------
+    # get employee info for the compnay 
+    # --------
     @app.get('/company/profile/<id>')
     @requires_auth('company')
     def get_user_company(jwt,id):
@@ -378,13 +428,18 @@ def create_app(test_config=None):
             abort(404)
 
         formatted_employee= employee.format()
+        company = db.session.query(Company).filter(Company.user== employee.id).first()
         
         return {
             'success':True,
-            'user': formatted_employee
+            'user': formatted_employee,
+            "company_id":company.id
         } 
 
 
+    # ---------
+    # get company info
+    # --------
     @app.get('/company/<id>')
     @requires_auth('company')
     def get_company_info(jwt,id):
@@ -400,6 +455,9 @@ def create_app(test_config=None):
             'company': formatted_company
         }
     
+    # ---------
+    # Register new company
+    # --------
     @app.post('/company/profile/<id>')
     @requires_auth('company')
     def register_company(jwt,id):
@@ -421,6 +479,7 @@ def create_app(test_config=None):
         if employee is None:
             abort(404)
 
+
         new_company = Company(name=name, email=email,website=website,country=country,city=city,image=image)
         db.session.add(new_company)
         db.session.commit()
@@ -435,6 +494,121 @@ def create_app(test_config=None):
             'company_id': int(new_company.id)
         }
 
+    # ---------
+    # Update company info
+    # --------
+    @app.patch('/company/update/<id>')
+    @requires_auth('company')
+    def update_company(jwt,id):
+        data = request.get_json()
+        name = data.get('name')
+        email = data.get('email')
+        website = data.get('website')
+        country = data.get('country')
+        city = data.get('city')
+        image = data.get('image')
+
+       # company 
+        company = db.session.query(Company).filter(Company.id==id).first()
+        print(company)
+        if company is None:
+            abort(404)
+        
+        company.name = name
+        company.email = email,
+        company.website = website,
+        company.country = country
+        company.city = city
+        company.image = image
+        db.session.commit()
+
+        return {
+            'success':True,
+        }
+
+    
+    # ---------
+    # change company user password
+    # --------
+    @app.post('/company/change-password/<id>')
+    @requires_auth('company')
+    def company_change_password(jwt,id):
+        data = request.get_json()
+        old_password= data.get('old_password',None)
+        new_password= data.get('new_password',None)
+
+        user = db.session.query(User).filter(User.id==id).first()
+        
+        if user is None:
+            print('here')
+            abort(404)
+        
+        if old_password is None or new_password is None:
+            abort(400)
+
+        # check hass password 
+        if not bcrypt.check_password_hash(user.password, old_password):
+            abort(401)
+       
+        hashed_pass = bcrypt.generate_password_hash(new_password).decode("utf8")
+        user.password = hashed_pass
+
+        db.session.commit()
+
+        return {
+            'success':True
+        }
+    
+
+    @app.post('/company/delete-user/<id>')
+    @requires_auth('company')
+    def delete_company(jwt,id):
+        data = request.get_json()
+        password= data.get('password',None)
+
+        if password is None:
+            abort(400)
+
+        user = db.session.query(User).filter(User.id==id).first()
+        if user is None:
+            abort(404)
+
+        employee = db.session.query(Employee).filter(Employee.id == user.owner).first()
+        company = db.session.query(Company).filter(Company.user == employee.id).first()
+        if employee is None:
+            abort(404)
+
+        db.session.delete(user)
+        db.session.delete(employee)
+        db.session.delete(company)
+        db.session.commit()
+
+        return {
+            'success':True
+        }
+
+
+
+
+    # ---------
+    # post job
+    # --------
+
+    @app.post('/company/job')
+    @requires_auth('company')
+    def post_a_job(jwt):
+        data = request.get_json()
+        
+        name = data.get('name')
+        description = data.get('name')
+        image = data.get('name')
+        slug = data.get('name')
+        job_type = data.get('name')
+        status = data.get('name')
+        country = data.get('name')
+        city = data.get('name')
+        expereince = data.get('name')
+        expiredDate = data.get('name')
 
 
     @app.errorhandler(400)
