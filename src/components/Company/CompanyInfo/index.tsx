@@ -12,6 +12,7 @@ const CompanyInfo = (): JSX.Element => {
   const [imageFile, setImageFile] = useState({})
   const [imageUpploadError, setImageUpploadError] = useState('')
 
+  const companyId = localStorage.getItem('company_id')
   const token: string = localStorage.getItem('jwt')!
   const { sub }: string = jwtDecode(token) // id of the logged in user
   const config = {
@@ -76,18 +77,33 @@ const CompanyInfo = (): JSX.Element => {
           return errors
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          try {
-            const { data } = await axios.post(
-              `http://127.0.0.1:5000/company/profile/${sub}`,
-              {
-                ...values
-              },
-              config
-            )
-            toast.success('Company Registered Succefully')
-            localStorage.setItem('company_id', data.company_id)
-          } catch (err) {
-            toast.error('an error accured')
+          if (companyId !== null) {
+            try {
+              const { data } = await axios.patch(
+                `http://127.0.0.1:5000/company/update/${companyId}`,
+                {
+                  ...values
+                },
+                config
+              )
+              toast.success('Company Updated Succefully')
+            } catch (err) {
+              toast.error('an error accured')
+            }
+          } else {
+            try {
+              const { data } = await axios.post(
+                `http://127.0.0.1:5000/company/profile/${sub}`,
+                {
+                  ...values
+                },
+                config
+              )
+              toast.success('Company Registered Succefully')
+              localStorage.setItem('company_id', data.company_id)
+            } catch (err) {
+              toast.error('an error accured')
+            }
           }
         }}
       >
@@ -206,7 +222,7 @@ const CompanyInfo = (): JSX.Element => {
                 additionalClasses='px-10 py-3 rounded-md mt-5'
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Saving...' : 'Save'}
+                {companyId !== null ? 'Update' : isSubmitting ? 'Saving...' : 'Save'}
               </Button>
             </div>
           </Form>
