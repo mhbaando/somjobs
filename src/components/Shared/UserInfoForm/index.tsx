@@ -53,6 +53,7 @@ const UserInfoForm = (): JSX.Element => {
           )
           setUserData(data.user)
           setImageFile(data.user.image)
+          localStorage.setItem('company_id', data.company_id)
         } catch (err: any) {
           toast.error('Failed To Rerive data')
         }
